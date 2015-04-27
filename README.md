@@ -1,4 +1,4 @@
 # turing
 A Universal Turing Machine simulator
 
-[https://chriskuech.github.io/turing/]
+https://chriskuech.github.io/turing/
