@@ -1,0 +1,374 @@
+html, body {
+  margin: 0; padding: 0;
+  background: #eee;
+  font-family: "Times New Roman", serif;
+  overflow-x: hidden;
+}
+
+#main-container {
+  background: white;
+  border: 1px solid #dadada;
+  border-radius: 2px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 2em;
+  width: 700px;
+  margin: 1em auto;
+}
+  header {
+    position: relative;
+  }
+    #portrait {
+      display: inline-block;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+      #portrait img {
+        width: 200px;
+        margin: -10px;
+      }
+    h1 {
+      color: #a00;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      font-size: 3em;
+      margin-bottom: 0.2em;
+      text-shadow: 0 1px 0 #c44, 0 2px 0 #c44;
+      line-height: 0.8em;
+    }
+  hr {
+    border: none;
+    border-top: 1px solid #aaa;
+    width: 65%;
+    margin: 2em auto;
+  }
+
+
+
+
+
+  #machine {}
+    .head {
+      width: 0; 
+      height: 0; 
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-top: 40px solid #a00;
+      display: inline-block;
+    }
+    #head {
+      margin: 0 auto -1em;
+      position: relative;
+      z-index: 1;
+      display: block;
+    }
+    #tape {
+      margin: 0 auto;
+      position: relative;
+      height: 50px;
+    }
+      #cells {
+        position: absolute;
+        top: 0;
+        width: 1000px;
+      }
+        .cell {
+          text-align: center;
+          position: relative;
+          width: 49px; height: 60px;
+          background: white;
+          border: 1px solid #ddd;
+          border-left: none;
+          float: left;
+        }
+          .cell .character {
+            color: #333;
+            font-size: 40px;
+          }
+          .cell .charcode {
+            position: absolute;
+            bottom: 0;
+            font-size: 18px;
+            color: #faa;
+            text-align: center;
+            width: 100%;
+          }
+        .cell.phantom {
+          background: #ddd;
+        }
+        .cell.phantom.first {
+          border-left: 1px solid #ddd;
+          border-top-left-radius: 2px;
+          border-bottom-left-radius: 2px;
+        }
+        .cell.phantom.last {
+          border-top-right-radius: 2px;
+          border-bottom-right-radius: 2px;
+        }
+
+
+  #tabs {}
+    #tabs-header {
+      font-size: 0;
+      border-bottom: 5px solid #690000;
+      text-shadow: 0.5px 0.1px #000;
+      cursor: pointer;
+    }
+      .tab-header-container {
+        width: 33.3%;
+        display: inline-block;
+      }
+      .tab-header-view {
+        margin: 3px 3px 0 3px;
+        padding: 5px;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        background: #ccc;
+        font-size: 30px;
+        color: #777;
+        text-shadow: none;
+      }
+        .active .tab-header-view {
+          background: #a00;
+          color: #222;
+        }
+        @-webkit-keyframes notification {
+          from {background-color: #ebb;}
+          to {background-color: #e99;}
+        }
+        @keyframes notification {
+          from {background-color: #ebb;}
+          to {background-color: #e99;}
+        }
+        .notification .tab-header-view {
+          -webkit-animation-duration: 2s;
+          -webkit-animation-name: notification;
+          -webkit-animation-iteration-count: infinite;
+          -webkit-animation-direction: alternate;
+          animation-duration: 2s;
+          animation-name: notification;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+        }
+
+  #tab-container {}
+    #terminal {}
+      #terminal-display {
+        position: relative;
+        width: 680px;
+        height: 380px;
+        font-size: 20px;
+        padding: 10px;
+        margin: 0;
+        background: #111;
+        font-family: monospace;
+        white-space: pre;
+        color: white;
+      }
+        #terminal-prompt-text {
+          position: absolute;
+          bottom: 10px;
+          left: 10px;
+          font-size: 20px;
+          z-index: 1;
+        }
+        #terminal-prompt-input {
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+          font-size: 20px;
+          background: none;
+          border: 1px solid white;
+          width: 50px;
+          text-align: right;
+          color: white;
+          outline: none;
+          font-family: monospace;
+          z-index: 1;
+        }
+        #terminal-lines {
+          text-align: left;
+          margin: 0;
+          padding: 10px 0 10px;
+          width: 680px;
+          position: absolute;
+          top: 0; left: 0;
+        }
+
+          #terminal-lines .line {
+            padding: 0 10px 0 34px;
+            text-indent: -24px;
+            width: 656px;
+            white-space: normal;
+          }
+
+    #editor {
+      height: 400px;
+      position: relative;
+      background: #333;
+      overflow: hidden;
+    }
+      #editor #line-numbers {
+        padding: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 20px;
+        line-height: 1em;
+        color: #aaa;
+        font-family: monospace;
+        text-align: left;
+        overflow: hidden;
+        text-align: right;
+        background: #333;
+        z-index: 1;
+        min-height: 100%;
+      }
+
+      #editor textarea {
+        max-width: 680px;
+        font-size: 13px;
+        height: 380px;
+        padding: 10px;
+        margin: 0;
+        border: none;
+        background: transparent;
+        font-family: monospace;
+        color: white;
+        outline: none;
+        font-size: 20px;
+        line-height: 1em;
+        position: absolute;
+        top: 0; left: 0;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      #run {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        padding: 0.2em 0.5em;
+        border-radius: 0.3em;
+        background: #a00;
+        color: #222;
+        border: none;
+        font-size: 20px;
+        font-weight: bold;
+        outline: none;
+      }
+        #run:hover {
+          background: #c44;
+          color: #444;
+        }
+
+    #instructions {
+      padding: 1em 3em;
+      text-align: left;
+      color: #111;
+      font-size: 18px;
+    }
+      #instructions h2, #instructions h3 {margin: 0.7em 0 0.3em 0;}
+        #instructions h2 {font-size: 30px;}
+        #instructions h3 {font-size: 20px;}
+      #instructions a {
+        font-style: italic;
+        color: #777;
+        text-decoration: none;
+      }
+        #instructions a:hover {color: #555;}
+        code {
+          background: #333;
+          padding: 0 3px;
+          color: white;
+        }
+      #instructions ol {
+        margin: 0;
+      }
+      .table {
+        border-radius: 3px;
+        overflow: hidden;
+        border: 1px solid #aaa;
+        box-shadow: 0 0.5px 0.5px #aaa;
+        display: inline-block;
+      }
+        .table table {
+          border-collapse: collapse;
+          margin: -1px;
+          display: block;
+        }
+        .table td {
+          border: 1px solid #aaa;
+          padding: 0.3em;
+          background: #fafafa;
+        }
+        .table td:first-child {
+          font-size: 1.7em;
+          background: #333;
+          border-color: #444;
+          text-align: center;
+        }
+
+  #speed-toggle {
+    font-size: 0;
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+    vertical-align: middle;
+  }
+    .speed-toggle-label {
+      color: #ccc;
+      font-size: 15px;
+      line-height: 25px;
+    }
+    .speed-toggle-button {
+      border: 1px solid #ddd;
+      background: #ddd;
+      text-transform: uppercase;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 5px 10px;
+      color: #777;
+      display: inline-block;
+      cursor: pointer;
+    }
+      .speed-toggle-button.active {
+        background: white;
+        color: #555;
+      }
+      .speed-toggle-button:first-of-type {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+      .speed-toggle-button:last-of-type {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+      .speed-toggle-button:not(.active):hover {
+        background: #ccc;
+        border-color: #ccc;
+      }
+
+
+  footer {
+    margin: 6em 0 0.5em;
+    text-align: right;
+    font-size: 18px;
+    color: #111;
+  }
+    footer a {
+      border: none;
+      text-decoration: none;
+      color: inherit;
+    }
+      footer a:hover {
+        color: #555;
+      }
+    footer img {
+      height: 20px;
+      vertical-align: top;
+    }
+
+
+

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Turing Machine Simulator</title>
+  <meta charset="ascii"> <!-- required for brainfuck -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- libs -->
+  <script src="uxadt.js"></script>
+  <script src="jquery.js"></script>
+  <!-- modules -->
+  <script src="machine.js"></script>
+  <script src="tabs.js"></script>
+  <script src="editor.js"></script>
+  <script src="brainfuck.js"></script>
+  <script src="terminal.js"></script>
+</head>
+
+
+
+
+<body>
+
+<div id="main-container">
+
+  <header>
+    <div id="portrait">
+      <img src="portrait.jpg">
+    </div>
+    <h1>Universal<br>Turing Machine</h1>
+  </header>
+
+  <hr>
+
+  <div id="machine">
+    <div id="head" class="head"></div>
+    <div id="tape">
+      <div id="cells">
+        <div class="phantom cell first"></div>
+        <div id="writable-cells"></div>
+        <div class="phantom cell last"></div>
+        <div style="clear:both;"></div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+
+
+  <div id="tabs">
+
+    <div id="tabs-header">
+      <div class="tab-header-container" data-content-sel="#editor">
+        <div class="tab-header-view">editor</div>
+      </div>
+      <div class="tab-header-container" data-content-sel="#terminal">
+        <div class="tab-header-view">terminal</div>
+      </div>
+      <div class="tab-header-container" data-content-sel="#instructions">
+        <div class="tab-header-view">instructions</div>
+      </div>
+    </div>
+
+    <div id="tab-container">
+
+      <div id="terminal" class="tab">
+        <div id="terminal-display">
+          <div id="terminal-prompt-text"></div>
+          <input id="terminal-prompt-input">
+          <div id="terminal-lines"></div>
+        </div>
+      </div>
+
+      <div id="editor" class="tab">
+        <div id="line-numbers"></div>
+        <textarea spellcheck="false">
+##
+# Hello World!
+# source:http://en.wikipedia.org/wiki/Brainfuck#Hello_World.21
+#
+
+++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+
+        </textarea>
+        <button id="run">Run</button>
+      </div>
+
+      <div id="instructions" class="tab">
+
+        <h2>Turing Machines</h2>
+        <a target="_blank" href="http://en.wikipedia.org/wiki/Turing_machine">Turing Machines</a> are hypothetical computers invented by <a target="_blank" href="http://en.wikipedia.org/wiki/Alan_Turing">Alan Turing</a>.  Turing Machines consist of a tape that extends infinitely at both ends and a "head" that can read and write to the tape.  The Turing Machine performs a sequence of steps one at a time.  Each step can perform one of the following four commands:
+        <ol>
+          <li>Read the character beneath the tape head</li>
+          <li>Write a character to the tape</li>
+          <li>Move the tape head one cell to the left</li>
+          <li>Move the tape head one cell to the right</li>
+        </ol>
+        Though Turing Machines only utilize a very basic set of commands, they are able to compute anything a normal computer can--albeit more difficultly.
+
+        <h2>Instructions</h2>
+        The parts of the Turing Machine simulator (corresponding to the definition) above are shown below.
+        <div class="table">
+          <table>
+            <tbody>
+              <tr><td><div class="head"></div></td><td>is the head of our Turing Machine</td></tr>
+              <tr><td><div class="cell"><span class="character">C</span><div class="charcode">67</div></div></td><td>is a character cell on the Turing Machine tape.  Computers can only operate on numbers, so each character has an associated number.  We use the <a target="_blank" href="http://en.wikipedia.org/wiki/ASCII">ASCII</a> character encoding system to convert characters to numbers.  The character is shown in black and its associated number is shown in light red below the character.
+            </tbody>
+          </table>
+        </div>
+        To run a program in the simulator, use the "editor" tab to enter a program in the <a href="#link-bf">Brainfuck</a> programming language, then click the "run" button in the bottom of the editor.  To see the output of the program or enter characters to the simulator, use the "terminal" tab.
+
+
+        <h2 id="link-bf">Brainfuck</h2>
+        <a target="_blank" href="http://en.wikipedia.org/wiki/Brainfuck">Brainfuck</a> is a programming language.  Brainfuck programs are a sequence of commands performed in order.
+
+        <h3>Brainfuck Commands</h3>
+        <div class="table">
+          <table>
+            <tbody>
+              <tr><td><code>&gt;</code></td><td>Move the tape head one space to the right</td></tr>
+              <tr><td><code>&lt;</td><td>Move the tape head one space to the left</td></tr>
+              <tr><td><code>+</code></td><td>Increment the character beneath the tape head</td></tr>
+              <tr><td><code>-</code></td><td>Decrement the character beneath the tape head</td></tr>
+              <tr><td><code>.</code></td><td>Print out the character beneath the tape head</td></tr>
+              <tr><td><code>,</code></td><td>Prompt the user to enter a character and write it beneath the tape head</td></tr>
+              <tr><td><code>[</code></td><td>Read the character beneath the tape head; if the character is 0, then jump to the matching <code>]</code>, otherwise run the commands between <code>[</code> and <code>]</code>.</td></tr>
+              <tr><td><code>]</code></td><td>This command designates the end of a <code>[ ... ]</code> block.  Like parenthesis in math, brackets in Brainfuck must be balanced and the outermost <code>[</code> matches only with the outermost <code>]</code>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Additional Commands</h3>
+        In addition to the Brainfuck commands, this Turing Machine simulator can also use the following commands; each command is a single character.
+        <div class="table">
+          <table>
+            <tbody>
+              <tr><td><code>A</code></td><td>The Turing Machine halts and accepts the string.</td></tr>
+              <tr><td><code>R</code></td><td>The Turing Machine halts and rejects the string.</td></tr>
+              <tr><td><code>H</code></td><td>The Turing Machine halts without accepting nor rejecting the string.</td></tr>
+              <tr><td><code>#</code></td><td>This is the comment character.  It allows you to add text to your Brainfuck code without having any affect on its operation.  Everything from after the <code>#</code> until the end of the line is ignored by the Turing Machine</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div id="speed-toggle">
+    <span class="speed-toggle-label">Operating Speed: </span>
+    <div class="speed-toggle-button" data-speed="500">Normal</div>
+    <div class="speed-toggle-button" data-speed="100">Fast</div>
+    <div class="speed-toggle-button" data-speed="0"  >Instant</div>
+  </div>
+
+
+  <footer>
+    <a target="_blank" href="https://github.com/chriskuech/turing">
+      github
+    </a>
+     | 
+    <a target="_blank" href="http://www.chriskuech.com">
+      Christopher Kuech
+    </a>
+    &copy; 2015
+     |
+    <a target="_blank" href="https://github.com/chriskuech/turing/blob/master/LICENSE">
+      MIT License
+    </a>
+  </footer>
+
+
+
+</div>
+
+</body>
+
+
+
+</html>
