@@ -83,10 +83,6 @@ function parse(ts) {
 
 
 function exec(stmt, callback) {
-  if (machine.halted) {
-    $('html, body').css('cursor', 'auto');
-    return;
-  }
   return stmt
     ._(env.Acc(), machine.accept)
     ._(env.Rej(), machine.reject)
@@ -145,7 +141,7 @@ window.interpret = function (s) {
   var ts = tokenize(s);
   var res = parse(ts);
   if (res[1].length) {
-    terminal.error("The program you entered is invalid\n\tmake sure the \
+    terminal.error("The program you entered is invalid\n\tmake sure that \
                     all the brackets are balanced and there are no commands \
                     to be executed after any halting commands.");
     return;

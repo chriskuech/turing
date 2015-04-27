@@ -111,14 +111,17 @@ window.machine = {
   accept: function () {
     terminal.accept();
     machine.halted = true;
+    $('html, body').css('cursor', 'auto');
   },
   reject: function () {
     terminal.reject();
     machine.halted = true;
+    $('html, body').css('cursor', 'auto');
   },
   halt: function () {
     terminal.halt();
     machine.halted = true;
+    $('html, body').css('cursor', 'auto');
   },
 
   /**
