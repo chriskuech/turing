@@ -32,7 +32,7 @@ function update_tape_offset(callback) {
   var tape_offset = head * 50;
   var head_offset = $('#main-container').width() / 2 - 0.5 * 50;
   var offset = head_offset - tape_offset;
-  $('#cells').animate({left: offset+'px'}, speed, callback)
+  $('#cells').animate({left: offset+'px'}, speed, callback);
 }
 
 
@@ -74,6 +74,7 @@ $(init);
 
 
 $(function () {
+  // init speed toggle
   $('.speed-toggle-button').click(function () {
     $('.speed-toggle-button').removeClass('active');
     $(this).addClass('active');
@@ -131,9 +132,10 @@ window.machine = {
     var n = Number($('#cells .cell:eq('+head+') .charcode').text());
     return n;
   },
-  write: function (n) {
+  write: function (n, callback) {
     $('#cells .cell:eq('+head+') .character').text(String.fromCharCode(n));
     $('#cells .cell:eq('+head+') .charcode').text(n);
+    setTimeout(callback, speed);
   },
   move: function (dir, callback) {
     ({

@@ -98,17 +98,20 @@ function exec(stmt, callback) {
         });
       })
     ._(env.Inc(_), function (stmt) {
-        machine.write(machine.read() + 1);
-        exec(stmt, callback);
+        machine.write(machine.read() + 1, function () {
+          exec(stmt, callback);
+        });
       })
     ._(env.Dec(_), function (stmt) {
-        machine.write(machine.read() - 1);
-        exec(stmt, callback);
+        machine.write(machine.read() - 1, function () {
+          exec(stmt, callback);          
+        });
       })
     ._(env.Get(_), function (stmt) {
         terminal.get(function (c) {
-          machine.write(c.charCodeAt(0));
-          exec(stmt, callback);
+          machine.write(c.charCodeAt(0), function () {
+            exec(stmt, callback);
+          });
         });
       })
     ._(env.Put(_), function (stmt) {

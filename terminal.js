@@ -26,6 +26,32 @@ function prompt(text, callback) {
 
 
 
+function clip() {
+  var visible = $('#terminal').is(':visible');
+  if (!visible) $('#terminal').show();
+  var maxheight = $('#terminal-display').height() - $('#terminal-prompt-input').height();
+  while ($('#terminal-lines').height() > maxheight)
+    $('#terminal-lines .line:first').remove();
+  if (!visible) $('#terminal').hide();
+}
+
+
+
+function println(text) {
+  $('#terminal-lines').append($('<div class="line">&gt; '+text+'</div>'));
+  putting = false;
+  tabs.notify("#terminal");
+  clip();
+}
+
+
+
+
+
+
+
+
+
 $(function init() {
   $('#terminal-prompt-input')
     .hide()
@@ -35,27 +61,6 @@ $(function init() {
       }
     });
 });
-
-
-
-
-function reset() {
-  $('#terminal-lines').append($('<div class="line">&gt; </div>'));
-  var maxheight = $('#terminal-display').height() - $('#terminal-prompt-input').height();
-  while ($('#terminal-lines').height() > maxheight)
-    $('#terminal-lines .line:first').remove();
-}
-
-
-
-
-
-function println(text) {
-  $('#terminal-lines').append($('<div class="line">&gt; '+text+'</div>'));
-  putting = false;
-  tabs.notify("#terminal");
-}
-
 
 
 
@@ -88,7 +93,8 @@ window.terminal = {
   },
   put: function (c) {
     if (!putting) {
-      reset();
+      $('#terminal-lines').append($('<div class="line">&gt; </div>'));
+      clip();
       putting = true;
     }
     var $line = $('#terminal-lines .line:last');
