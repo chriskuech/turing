@@ -242,7 +242,7 @@ html, body {
         position: absolute;
         top: 0; left: 0;
         overflow-x: auto;
-        white-space: nowrap;
+        white-space: pre;
       }
 
       #run {
